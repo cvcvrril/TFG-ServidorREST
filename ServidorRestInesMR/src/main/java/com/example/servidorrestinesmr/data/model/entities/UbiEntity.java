@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "ubicaciones")
+@NamedQueries({
+        @NamedQuery(name = "GET_ALL_UBIS", query = "from UbiEntity")
+})
 public class UbiEntity {
 
     @Id
@@ -19,6 +22,8 @@ public class UbiEntity {
     private double lat;
     @Column(name = "lon", nullable = false)
     private double lon;
+    @Column(name = "id_user", nullable = false)
+    private int idUser;
 
 
 }
