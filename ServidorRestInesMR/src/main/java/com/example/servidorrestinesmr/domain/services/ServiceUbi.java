@@ -9,5 +9,6 @@ import java.util.List;
 public interface ServiceUbi {
 
     Either<ErrorSec, List<UbiDTO>> getAll();
+    Either<ErrorSec, UbiDTO> getByIdUbi(int id);
 
 }

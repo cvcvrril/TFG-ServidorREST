@@ -22,5 +22,10 @@ public class UbiController {
         return service.getAll().getOrElseThrow(() -> new RuntimeException());
     }
 
+    @GetMapping("/ubicacion")
+    public UbiDTO getbyIdUbi(@RequestParam("id") int id){
+        return service.getByIdUbi(id).getOrElseThrow(() -> new RuntimeException());
+    }
+
 
 }

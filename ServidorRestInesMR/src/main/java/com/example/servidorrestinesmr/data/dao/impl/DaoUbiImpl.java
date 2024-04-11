@@ -48,4 +48,25 @@ public class DaoUbiImpl implements DaoUbi {
         }
         return res;
     }
+
+    @Override
+    public Either<ErrorSec, UbiDTO> getByIdUbi(int id) {
+        Either<ErrorSec, UbiDTO> res;
+        UbiDTO ubiDTO;
+        UbiEntity ubiEntity;
+        em = jpaUtil.getEntityManager();
+        try {
+            ubiEntity = em.find(UbiEntity.class, id);
+            if (ubiEntity != null){
+                ubiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon());
+                res = Either.right(ubiDTO);
+            }else {
+                throw new DatabaseException("No se han encontrado una ubicación con ese id.");
+            }
+        }catch (Exception e){
+            log.error(e.getMessage(), e);
+            res = Either.left(new ErrorSec(0, e.getMessage(), LocalDateTime.now()));
+        }
+        return res;
+    }
 }

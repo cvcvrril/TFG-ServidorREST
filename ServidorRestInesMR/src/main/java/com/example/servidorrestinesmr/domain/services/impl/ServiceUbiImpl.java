@@ -20,4 +20,9 @@ public class ServiceUbiImpl implements ServiceUbi {
     public Either<ErrorSec, List<UbiDTO>> getAll() {
         return daoUbi.getAll();
     }
+
+    @Override
+    public Either<ErrorSec, UbiDTO> getByIdUbi(int id) {
+        return daoUbi.getByIdUbi(id);
+    }
 }
