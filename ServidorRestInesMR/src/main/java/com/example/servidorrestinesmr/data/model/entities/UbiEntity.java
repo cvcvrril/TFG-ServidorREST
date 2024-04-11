@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ubicaciones")
 @NamedQueries({
-        @NamedQuery(name = "GET_ALL_UBIS", query = "from UbiEntity")
+        @NamedQuery(name = "GET_ALL_UBIS", query = "from UbiEntity"),
+        @NamedQuery(name = "GET_ALL_UBIS_BY_IDUSER", query = "from UbiEntity where idUser = :idUser")
 })
 public class UbiEntity {
 

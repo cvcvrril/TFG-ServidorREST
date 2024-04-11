@@ -3,10 +3,7 @@ package com.example.servidorrestinesmr.ui.controllers;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.services.ServiceUbi;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +24,13 @@ public class UbiController {
         return service.getByIdUbi(id).getOrElseThrow(() -> new RuntimeException());
     }
 
+    @GetMapping("/ubiuser")
+    public List<UbiDTO> getAllUbisByUserId(@RequestParam("id_user")int idUser){
+        return service.getAllByUserId(idUser).get();
+    }
 
+    @DeleteMapping("/delete")
+    public int deleteUbi(@RequestParam("id") int id){
+        return service.deleteUbi(id).get();
+    }
 }

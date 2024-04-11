@@ -9,7 +9,7 @@ import java.util.List;
 public interface DaoUbi {
 
     Either<ErrorSec, List<UbiDTO>> getAll();
-
     Either<ErrorSec, UbiDTO> getByIdUbi(int id);
-
+    Either<ErrorSec, List<UbiDTO>> getAllByUserId(int idUser);
+    Either<ErrorSec, Integer> deleteUbi(int id);
 }
