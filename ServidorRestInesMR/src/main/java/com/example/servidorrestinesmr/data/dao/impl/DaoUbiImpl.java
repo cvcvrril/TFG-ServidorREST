@@ -3,6 +3,7 @@ package com.example.servidorrestinesmr.data.dao.impl;
 import com.example.servidorrestinesmr.data.dao.DaoUbi;
 import com.example.servidorrestinesmr.data.dao.connection.JPAUtil;
 import com.example.servidorrestinesmr.data.model.entities.UbiEntity;
+import com.example.servidorrestinesmr.domain.model.NewUbiDTO;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.model.error.ErrorSec;
 import com.example.servidorrestinesmr.domain.model.error.exceptions.DatabaseException;
@@ -112,6 +113,32 @@ public class DaoUbiImpl implements DaoUbi {
             tx.commit();
             res = Either.right(1);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            if (tx.isActive()) tx.rollback();
+            res = Either.left(new ErrorSec(0, e.getMessage(), LocalDateTime.now()));
+        }finally {
+            if (em != null) em.close();
+        }
+        return res;
+    }
+
+    @Override
+    public Either<ErrorSec, UbiDTO> addUbi(NewUbiDTO nuevaUbi) {
+        Either<ErrorSec, UbiDTO> res;
+        em = jpaUtil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+            if (nuevaUbi != null){
+                UbiEntity nuevaUbiEntity = new UbiEntity(0, nuevaUbi.getLat(), nuevaUbi.getLon(), nuevaUbi.getIdUser());
+                em.persist(nuevaUbiEntity);
+                tx.commit();
+                UbiDTO ubiDTO = new UbiDTO(nuevaUbiEntity.getId(), nuevaUbi.getLat(), nuevaUbi.getLon());
+                res = Either.right(ubiDTO);
+            }else {
+                throw new DatabaseException("La ubicación es nula. Hubo un error");
+            }
+        }catch (Exception e){
             log.error(e.getMessage(), e);
             if (tx.isActive()) tx.rollback();
             res = Either.left(new ErrorSec(0, e.getMessage(), LocalDateTime.now()));

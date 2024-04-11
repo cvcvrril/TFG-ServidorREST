@@ -1,6 +1,7 @@
 package com.example.servidorrestinesmr.domain.services.impl;
 
 import com.example.servidorrestinesmr.data.dao.DaoUbi;
+import com.example.servidorrestinesmr.domain.model.NewUbiDTO;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.model.error.ErrorSec;
 import com.example.servidorrestinesmr.domain.services.ServiceUbi;
@@ -34,5 +35,10 @@ public class ServiceUbiImpl implements ServiceUbi {
     @Override
     public Either<ErrorSec, Integer> deleteUbi(int id) {
         return daoUbi.deleteUbi(id);
+    }
+
+    @Override
+    public Either<ErrorSec, UbiDTO> addUbi(NewUbiDTO nuevaUbi) {
+        return daoUbi.addUbi(nuevaUbi);
     }
 }
