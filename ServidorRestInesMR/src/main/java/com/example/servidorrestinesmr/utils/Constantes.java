@@ -17,6 +17,7 @@ public class Constantes {
             "/auth/registro",
             "/activation",
             "/forgotPassword",
+            //"/ubi/all",
     };
 
     public static final String ACCESS_TOKEN = "access_token";
