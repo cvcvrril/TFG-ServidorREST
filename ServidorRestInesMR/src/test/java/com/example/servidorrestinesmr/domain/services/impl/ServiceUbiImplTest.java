@@ -40,25 +40,33 @@ class ServiceUbiImplTest {
     }
 
 
+    /**
+     * Test 1 - getAll
+     **/
+
     @Test
     void getAll() {
 
         // Configurar el comportamiento de daoUbi.getAll() para devolver un valor simulado
-        List<UbiDTO> mockedUbiList = new ArrayList<>(); // Puedes llenar esta lista con datos simulados
+        List<UbiDTO> mockedUbiList = new ArrayList<>();
         when(daoUbi.getAll()).thenReturn(Either.right(mockedUbiList));
 
-        // Simulando datos, NO ES DEFINITIVO
+        // Datos simulados
         mockedUbiList.add(new UbiDTO(46, 40.42436829348128, -3.7009334002974414));
         mockedUbiList.add(new UbiDTO(57, 40.42280310370885, -3.7062382472899285));
 
         // Llamar al método que estás probando
-        List<UbiDTO> userEntityList = serviceUbi.getAll().getOrElseThrow(() -> new RuntimeException("Me cago en mi desgracia"));
+        List<UbiDTO> userEntityList = serviceUbi.getAll().getOrElseThrow(() -> new RuntimeException());
         Either<ErrorSec, List<UbiDTO>> result = serviceUbi.getAll();
 
         // Verificar el resultado esperado
         assertThat(result.get()).hasSize(2);
         assertThat(result.isRight()).isTrue();
     }
+
+    /**
+     * Test 2 - getByIdUbi
+     **/
 
     @Test
     void getByIdUbi() {
@@ -76,6 +84,10 @@ class ServiceUbiImplTest {
         assertThat(result.isRight()).isTrue();
         assertThat(result.get()).isEqualTo(mockedUbi);
     }
+
+    /**
+     * Test 3 - getAllByUserId
+     **/
 
     @Test
     void getAllByUserId() {

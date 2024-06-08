@@ -1,8 +1,10 @@
 package com.example.servidorrestinesmr.ui.controllers;
 
+import com.example.servidorrestinesmr.data.model.UserResponse;
 import com.example.servidorrestinesmr.domain.model.NewUbiDTO;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.services.ServiceUbi;
+import com.example.servidorrestinesmr.domain.services.ServiceUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 public class UbiController {
 
     private final ServiceUbi service;
+    private final ServiceUser serviceUser;
 
     @GetMapping("/all")
     @Secured({"ROLE_ADMIN"})

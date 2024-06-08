@@ -130,7 +130,7 @@ public class DaoUbiImpl implements DaoUbi {
         tx.begin();
         try {
             if (nuevaUbi != null){
-                UbiEntity nuevaUbiEntity = new UbiEntity(0, nuevaUbi.getLat(), nuevaUbi.getLon(), nuevaUbi.getIdUser());
+                UbiEntity nuevaUbiEntity = new UbiEntity(0, nuevaUbi.getLon(), nuevaUbi.getLat(), nuevaUbi.getIdUser());
                 em.persist(nuevaUbiEntity);
                 tx.commit();
                 UbiDTO ubiDTO = new UbiDTO(nuevaUbiEntity.getId(), nuevaUbi.getLat(), nuevaUbi.getLon());

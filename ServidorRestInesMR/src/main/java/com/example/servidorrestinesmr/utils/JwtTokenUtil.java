@@ -7,9 +7,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.PublicKey;
 
@@ -53,7 +54,7 @@ public class JwtTokenUtil {
     private PublicKey getPublicKey() {
         try {
             KeyStore ks = KeyStore.getInstance(Constantes.PKCS_12);
-            try (FileInputStream fis = new FileInputStream(path)) {
+            try (InputStream fis = new ClassPathResource(path).getInputStream()) {
                 ks.load(fis, password.toCharArray());
             }
             KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(password.toCharArray());
@@ -61,10 +62,10 @@ public class JwtTokenUtil {
             if (pkEntry != null) {
                 return pkEntry.getCertificate().getPublicKey();
             } else {
-                throw new RuntimeException("No se encontró la entrada de la clave privada en la keystore");
+                throw new RuntimeException("No se encontró la entrada de la clave pública en la keystore");
             }
         } catch (Exception e) {
-            throw new RuntimeException("Error al cargar la clave privada de la keystore");
+            throw new RuntimeException("Error al cargar la clave pública de la keystore");
         }
     }
 }

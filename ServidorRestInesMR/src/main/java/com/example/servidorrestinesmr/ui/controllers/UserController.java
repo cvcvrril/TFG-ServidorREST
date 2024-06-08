@@ -18,8 +18,7 @@ public class UserController {
 
     @GetMapping("/byId")
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public UserResponse loginAuth(@RequestParam("id") int id ) {
+    public UserResponse getUserById(@RequestParam("id") int id ) {
         return serviceUser.getUserById(id).get();
     }
-
 }
