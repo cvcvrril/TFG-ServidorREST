@@ -11,4 +11,5 @@ public class NewUbiDTO {
     private double lat;
     private double lon;
     private int idUser;
+    private String nombre;
 }

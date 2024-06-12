@@ -1,6 +1,7 @@
 package com.example.servidorrestinesmr.common;
 
-import com.example.servidorrestinesmr.utils.JwtTokenUtil;
+import com.example.servidorrestinesmr.utils.Constantes;
+import com.example.servidorrestinesmr.utils.JwtToken;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
@@ -24,9 +25,9 @@ import static org.apache.logging.log4j.util.Strings.isEmpty;
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private final JwtTokenUtil jwtTokenUtil;
-    public JwtTokenFilter(JwtTokenUtil jwtTokenUtil) {
-        this.jwtTokenUtil = jwtTokenUtil;
+    private final JwtToken jwtToken;
+    public JwtTokenFilter(JwtToken jwtToken) {
+        this.jwtToken = jwtToken;
     }
 
     @Override
@@ -37,23 +38,23 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         try{
             // Get authorization header and validate
             final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-            if (isEmpty(header) || !header.startsWith("Bearer")) {
+            if (isEmpty(header) || !header.startsWith(Constantes.BEARER)) {
                 chain.doFilter(request, response);
                 return;
             }
 
             // Get jwt token and validate
             final String token = header.split(" ")[1].trim();
-            if (!jwtTokenUtil.validate(token)) {
+            if (!jwtToken.validate(token)) {
                 chain.doFilter(request, response);
                 return;
             }
 
             // Get user identity and set it on the spring security context
             UserDetails userDetails = User.builder()
-                    .username(jwtTokenUtil.getUsername(token))
+                    .username(jwtToken.getUsername(token))
                     .password("")
-                    .roles(jwtTokenUtil.getRol(token))
+                    .roles(jwtToken.getRol(token))
                     .build();
 
             UsernamePasswordAuthenticationToken
@@ -70,10 +71,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             chain.doFilter(request, response);
         } catch (ExpiredJwtException e){
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Token expirado");
+            response.getWriter().write(Constantes.TOKEN_EXPIRADO);
         }catch (SignatureException e){
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Token inválido");
+            response.getWriter().write(Constantes.TOKEN_INVALIDO);
         }
     }
 

@@ -4,7 +4,6 @@ import com.example.servidorrestinesmr.domain.model.NewUbiDTO;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.model.error.ErrorSec;
 import io.vavr.control.Either;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

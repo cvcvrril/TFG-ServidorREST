@@ -2,49 +2,36 @@
 package com.example.servidorrestinesmr.utils;
 
 public class Constantes {
-    public static final String KEYSTORE_PFX = "keystore.pfx";
-    public static final String RSA = "RSA";
-    public static final String CN_SERVER = "CN=Server";
     public static final String PKCS_12 = "PKCS12";
-    public static final String SHA_256_WITH_RSA_ENCRYPTION = "SHA256WithRSAEncryption";
-    public static final String SERVER = "server";
-    public static final String PBKDF_2_WITH_HMAC_SHA_256 = "PBKDF2WithHmacSHA256";
-    public static final String AES = "AES";
-    public static final String AES_GCM_NO_PADDING = "AES/GCM/noPadding";
-    public static final String KEY_STORE_PASSWORD = "${KeyStorePassword}";
-    public static final String[] WHITE_LIST_URL = {
-            "/auth/login",
-            "/auth/registro",
-            "/activation",
-            "/forgotPassword",
-            //"/ubi/all",
-    };
-
-    public static final String ACCESS_TOKEN = "access_token";
-    public static final String REFRESH_TOKEN = "refresh_token";
-    public static final String TABLE_ROLES = "roles";
     public static final String ID = "id";
     public static final String ROL = "rol";
-    public static final String TABLE_USERS = "users";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String ROLES = "roles";
-    public static final String QUERY_GET_ALL_WITH_PERMISOS = "select u from UserEntity u";
-    public static final String ERROR_USER_NOT_FOUND = "User not found";
-    public static final String CLAIM_USER = "user";
-    public static final String CLAIM_ROL = "rol";
-    public static final String ALIAS_SERVER = "server";
-    public static final String PASSWORD_STRING = "Prueba";
-    public static final String ROL_USER = "USER";
-    public static final String ERROR_USERNAME_PASSWORD_VACIOS = "Ni el usuario ni la contraseña pueden estar vacíos.";
-    public static final String REQUEST_MAPPING = "/auth";
-    public static final String MAPPING_LOGIN = "/login";
-    public static final String MAPPING_REGISTRO = "/registro";
-    public static final String REQUEST_PARAM_USERNAME = "username";
-    public static final String REQUEST_PARAM_PASSWORD = "password";
-    public static final String DESCRIPCION_POR_DEFECTO_PERSONAJE = "Personaje añadido por el usuario";
-    public static final String USER_EMPTY = "User vacío";
+    public static final String NO_SE_ENCONTRO_LA_ENTRADA_DE_LA_CLAVE_PUBLICA_EN_LA_KEYSTORE = "No se encontró la entrada de la clave pública en la keystore";
+    public static final String ERROR_AL_CARGAR_LA_CLAVE_PUBLICA_DE_LA_KEYSTORE = "Error al cargar la clave pública de la keystore";
+    public static final String NO_SE_HAN_ENCONTRADO_UBICACIONES = "No se han encontrado ubicaciones.";
+    public static final String LA_UBICACION_ES_NULA_HUBO_UN_ERROR = "La ubicación es nula. Hubo un error.";
+    public static final String ID_USER = "idUser";
+    public static final String NO_SE_HAN_ENCONTRADO_UNA_UBICACION_CON_EL_ID_PROPORCIONADO = "No se han encontrado una ubicación con el id proporcionado.";
+    public static final String TOKEN_EXPIRADO = "Token expirado";
+    public static final String TOKEN_INVALIDO = "Token inválido";
+    public static final String BEARER = "Bearer";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String UBI_PATH = "/ubi";
+    public static final String ALL_PATH = "/all";
+    public static final String UBIUSER_PATH = "/ubiuser";
+    public static final String UBICACION_PATH = "/ubicacion";
+    public static final String DELETE_PATH = "/delete";
+    public static final String ADD_PATH = "/add";
+    public static final String GET_ALL_UBIS = "GET_ALL_UBIS";
+    public static final String GET_ALL_UBIS_BY_IDUSER = "GET_ALL_UBIS_BY_IDUSER";
+    public static final String ID_USER_SEPARADO = "id_user";
+    public static final String UBICACIONES_TABLA = "ubicaciones";
+    public static final String LAT = "lat";
+    public static final String LON = "lon";
+    public static final String NOMBRE = "nombre";
+
 
     public Constantes() {
+        //Comentario para que SonarLint no lo detecte
     }
 }

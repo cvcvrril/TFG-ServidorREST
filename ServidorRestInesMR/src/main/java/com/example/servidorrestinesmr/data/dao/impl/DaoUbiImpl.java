@@ -7,6 +7,7 @@ import com.example.servidorrestinesmr.domain.model.NewUbiDTO;
 import com.example.servidorrestinesmr.domain.model.UbiDTO;
 import com.example.servidorrestinesmr.domain.model.error.ErrorSec;
 import com.example.servidorrestinesmr.domain.model.error.exceptions.DatabaseException;
+import com.example.servidorrestinesmr.utils.Constantes;
 import io.vavr.control.Either;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -34,16 +35,16 @@ public class DaoUbiImpl implements DaoUbi {
         em = jpaUtil.getEntityManager();
         try {
             ubiEntityList = em
-                    .createNamedQuery("GET_ALL_UBIS", UbiEntity.class)
+                    .createNamedQuery(Constantes.GET_ALL_UBIS, UbiEntity.class)
                     .getResultList();
             if (!ubiEntityList.isEmpty()) {
                 for (UbiEntity ubiEntity : ubiEntityList) {
-                    UbiDTO nuevoUbiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon());
+                    UbiDTO nuevoUbiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon(), ubiEntity.getNombre());
                     ubiList.add(nuevoUbiDTO);
                 }
                 res = Either.right(ubiList);
             } else {
-                throw new DatabaseException("No se han encontrado ubicaciones");
+                throw new DatabaseException(Constantes.NO_SE_HAN_ENCONTRADO_UBICACIONES);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -61,10 +62,10 @@ public class DaoUbiImpl implements DaoUbi {
         try {
             ubiEntity = em.find(UbiEntity.class, id);
             if (ubiEntity != null) {
-                ubiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon());
+                ubiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon(), ubiEntity.getNombre());
                 res = Either.right(ubiDTO);
             } else {
-                throw new DatabaseException("No se han encontrado una ubicación con ese id.");
+                throw new DatabaseException(Constantes.NO_SE_HAN_ENCONTRADO_UNA_UBICACION_CON_EL_ID_PROPORCIONADO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -81,17 +82,17 @@ public class DaoUbiImpl implements DaoUbi {
         em = jpaUtil.getEntityManager();
         try {
             ubiEntityList = em
-                    .createNamedQuery("GET_ALL_UBIS_BY_IDUSER", UbiEntity.class)
-                    .setParameter("idUser", idUser)
+                    .createNamedQuery(Constantes.GET_ALL_UBIS_BY_IDUSER, UbiEntity.class)
+                    .setParameter(Constantes.ID_USER, idUser)
                     .getResultList();
             if (!ubiEntityList.isEmpty()) {
                 for (UbiEntity ubiEntity : ubiEntityList) {
-                    UbiDTO nuevoUbiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon());
+                    UbiDTO nuevoUbiDTO = new UbiDTO(ubiEntity.getId(), ubiEntity.getLat(), ubiEntity.getLon(), ubiEntity.getNombre());
                     ubiList.add(nuevoUbiDTO);
                 }
                 res = Either.right(ubiList);
             } else {
-                throw new DatabaseException("No se han encontrado ubicaciones");
+                throw new DatabaseException(Constantes.NO_SE_HAN_ENCONTRADO_UBICACIONES);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -130,13 +131,13 @@ public class DaoUbiImpl implements DaoUbi {
         tx.begin();
         try {
             if (nuevaUbi != null){
-                UbiEntity nuevaUbiEntity = new UbiEntity(0, nuevaUbi.getLon(), nuevaUbi.getLat(), nuevaUbi.getIdUser());
+                UbiEntity nuevaUbiEntity = new UbiEntity(0, nuevaUbi.getLon(), nuevaUbi.getLat(), nuevaUbi.getIdUser(), nuevaUbi.getNombre());
                 em.persist(nuevaUbiEntity);
                 tx.commit();
-                UbiDTO ubiDTO = new UbiDTO(nuevaUbiEntity.getId(), nuevaUbi.getLat(), nuevaUbi.getLon());
+                UbiDTO ubiDTO = new UbiDTO(nuevaUbiEntity.getId(), nuevaUbi.getLat(), nuevaUbi.getLon(), nuevaUbi.getNombre());
                 res = Either.right(ubiDTO);
             }else {
-                throw new DatabaseException("La ubicación es nula. Hubo un error");
+                throw new DatabaseException(Constantes.LA_UBICACION_ES_NULA_HUBO_UN_ERROR);
             }
         }catch (Exception e){
             log.error(e.getMessage(), e);

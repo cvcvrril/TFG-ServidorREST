@@ -11,4 +11,5 @@ public class UbiDTO {
     private int id;
     private double lat;
     private double lon;
+    private String nombre;
 }

@@ -52,8 +52,8 @@ class ServiceUbiImplTest {
         when(daoUbi.getAll()).thenReturn(Either.right(mockedUbiList));
 
         // Datos simulados
-        mockedUbiList.add(new UbiDTO(46, 40.42436829348128, -3.7009334002974414));
-        mockedUbiList.add(new UbiDTO(57, 40.42280310370885, -3.7062382472899285));
+        mockedUbiList.add(new UbiDTO(46, 40.42436829348128, -3.7009334002974414, "Bar Pepe"));
+        mockedUbiList.add(new UbiDTO(57, 40.42280310370885, -3.7062382472899285, "Bar Lisa"));
 
         // Llamar al método que estás probando
         List<UbiDTO> userEntityList = serviceUbi.getAll().getOrElseThrow(() -> new RuntimeException());
@@ -72,7 +72,7 @@ class ServiceUbiImplTest {
     void getByIdUbi() {
         // Datos simulados
         int id = 1;
-        UbiDTO mockedUbi = new UbiDTO(1, 40.123, -3.456);
+        UbiDTO mockedUbi = new UbiDTO(1, 40.123, -3.456, "Bar Pepe");
 
         // Configurar el comportamiento del DAO
         when(daoUbi.getByIdUbi(id)).thenReturn(Either.right(mockedUbi));
@@ -94,8 +94,8 @@ class ServiceUbiImplTest {
         // Datos simulados
         int userId = 1;
         List<UbiDTO> mockedUbiList = new ArrayList<>();
-        mockedUbiList.add(new UbiDTO(1, 40.123, -3.456));
-        mockedUbiList.add(new UbiDTO(2, 40.789, -3.987));
+        mockedUbiList.add(new UbiDTO(1, 40.123, -3.456, "Bar Pepe"));
+        mockedUbiList.add(new UbiDTO(2, 40.789, -3.987, "Bar Lisa"));
 
         // Configurar el comportamiento del DAO
         when(daoUbi.getAllByUserId(userId)).thenReturn(Either.right(mockedUbiList));
@@ -128,8 +128,8 @@ class ServiceUbiImplTest {
     @Test
     void addUbi() {
         // Datos simulados
-        NewUbiDTO newUbi = new NewUbiDTO( 40.123, -3.456, 1);
-        UbiDTO addedUbi = new UbiDTO(45, 40.123, -3.456);
+        NewUbiDTO newUbi = new NewUbiDTO( 40.123, -3.456, 1, "Bar Pepe");
+        UbiDTO addedUbi = new UbiDTO(45, 40.123, -3.456, "Bar Lisa");
 
         // Configurar el comportamiento del DAO
         when(daoUbi.addUbi(newUbi)).thenReturn(Either.right(addedUbi));
